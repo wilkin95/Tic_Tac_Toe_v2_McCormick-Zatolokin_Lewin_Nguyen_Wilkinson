@@ -14,7 +14,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
         //
         private bool _playingGame;
         private bool _playingRound;
-
+        private bool _usingGame;
         private int _roundNumber;
 
         //
@@ -44,9 +44,11 @@ namespace CodingActivity_TicTacToe_ConsoleGame
         public GameController()
         {
             InitializeGame();
-            PlayGame();
+
+            ManageGameLoop();
+
         }
-        
+
         #endregion
 
         #region METHODS
@@ -65,12 +67,70 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             _playerONumberOfWins = 0;
             _playerXNumberOfWins = 0;
             _numberOfCatsGames = 0;
-
+            _usingGame = true;
             //
             // Initialize game board status
             //
             _gameboard.InitializeGameboard();
+
+            //
+            // Initialize Menu
+            //
         }
+
+        private void ManageGameLoop()
+        {
+            MenuOption playerMenuChoice;
+            _gameView.DisplayWelcomeScreen();
+
+
+
+            while (_usingGame)
+            {
+
+                while (!Console.KeyAvailable)
+                {
+                    playerMenuChoice = _gameView.DisplayGetMenuChoice();
+
+                    switch (playerMenuChoice)
+                    {
+                        case MenuOption.None:
+                            break;
+                        case MenuOption.PlayNewRound:
+                            PlayGame();
+                            break;
+                        case MenuOption.GameRules:
+                            _gameView.DisplayRulesScreen();
+                            break;
+                        case MenuOption.ViewCurrentGameStats:
+                            //
+                            // Round Complete: Display the results
+                            //
+                            _gameView.DisplayCurrentGameStatus(_roundNumber, _playerXNumberOfWins, _playerONumberOfWins, _numberOfCatsGames);
+                            break;
+                        case MenuOption.ViewHistoricGameStats:
+                            _gameView.DisplayHistoricGameStats();
+                            break;
+                        case MenuOption.SaveGameResults:
+                            Console.WriteLine("\t" + Environment.NewLine + "I'm sorry, that option is not available at this time.");
+                            _gameView.DisplayContinuePrompt();
+                            break;
+                        case MenuOption.Quit:
+                            _gameView.DisplayExitPrompt();
+                            _usingGame = false;
+                            break;
+                        default:
+                            break;
+
+                    }
+                }
+                _gameView.DisplayExitPrompt();
+                Environment.Exit(1);
+            }
+
+
+        }
+
 
 
         /// <summary>
@@ -78,15 +138,18 @@ namespace CodingActivity_TicTacToe_ConsoleGame
         /// </summary>
         public void PlayGame()
         {
-            _gameView.DisplayWelcomeScreen();
+
 
             while (_playingGame)
             {
+
                 //
                 // Round loop
                 //
                 while (_playingRound)
                 {
+
+
                     //
                     // Perform the task associated with the current game and round state
                     //

@@ -10,8 +10,9 @@ namespace CodingActivity_TicTacToe_ConsoleGame
     {
         None,
         PlayNewRound,
-        ViewCurrentGameResults,
-        ViewPastGameResultsScores,
+        GameRules,
+        ViewCurrentGameStats,
+        ViewHistoricGameStats,
         SaveGameResults,
         Quit
     }

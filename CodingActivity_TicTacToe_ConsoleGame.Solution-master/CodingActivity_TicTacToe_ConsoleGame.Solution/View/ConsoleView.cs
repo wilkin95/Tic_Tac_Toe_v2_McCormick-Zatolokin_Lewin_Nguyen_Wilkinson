@@ -101,6 +101,19 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             Console.CursorVisible = true;
         }
 
+        public void AnyPointExit()
+        {
+            ConsoleKeyInfo userResponse = Console.ReadKey(true);
+
+
+            if (userResponse.Key == ConsoleKey.Escape)
+            {
+                Environment.Exit(0);
+            }
+
+
+        }
+
         /// <summary>
         /// display the Exit prompt on a clean screen
         /// </summary>
@@ -111,7 +124,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             Console.CursorVisible = false;
 
             Console.WriteLine();
-            ConsoleUtil.DisplayMessage("Thank you for play the game. Press any key to Exit.");
+            ConsoleUtil.DisplayMessage("Thank you for playing the game. Press any key to Exit.");
 
             Console.ReadKey();
 
@@ -179,8 +192,8 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             ConsoleUtil.HeaderText = "The Tic-tac-toe Game";
             ConsoleUtil.DisplayReset();
 
-            ConsoleUtil.DisplayMessage("Written by John Velis");
-            ConsoleUtil.DisplayMessage("Northwestern Michigan College");
+            ConsoleUtil.DisplayMessage("Modified by Patrick McCormick-Zatolokin, Austin Nguyen, Nick Lewin, and Terri Wilkinson");
+            ConsoleUtil.DisplayMessage("Northwestern Michigan College CIT 255");
             Console.WriteLine();
 
             sb.Clear();
@@ -234,6 +247,48 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             ConsoleUtil.DisplayMessage("Cat's Games: " + catsGames + " - " + String.Format("{0:P2}", percentageOfCatsGames));
 
             DisplayContinuePrompt();
+
+        }
+
+        public void DisplayHistoricGameStats()
+        {
+            ConsoleUtil.HeaderText = "Historic Game Stats";
+            ConsoleUtil.DisplayReset();
+
+            //double playerXPercentageWins = (double)playerXWins / roundsPlayed;
+            //double playerOPercentageWins = (double)playerOWins / roundsPlayed;
+            //double percentageOfCatsGames = (double)catsGames / roundsPlayed;
+
+            //ConsoleUtil.DisplayMessage("Rounds Played: " + roundsPlayed);
+            //ConsoleUtil.DisplayMessage("Rounds for Player X: " + playerXWins + " - " + String.Format("{0:P2}", playerXPercentageWins));
+            //ConsoleUtil.DisplayMessage("Rounds for Player O: " + playerOWins + " - " + String.Format("{0:P2}", playerOPercentageWins));
+            //ConsoleUtil.DisplayMessage("Cat's Games: " + catsGames + " - " + String.Format("{0:P2}", percentageOfCatsGames));
+
+            Console.WriteLine("I'm sorry, that option is not available at this time.");
+
+
+            DisplayContinuePrompt();
+        }
+
+        public void SaveGameResults()
+        {
+            ConsoleUtil.HeaderText = "Save Game Results";
+            ConsoleUtil.DisplayReset();
+
+            //double playerXPercentageWins = (double)playerXWins / roundsPlayed;
+            //double playerOPercentageWins = (double)playerOWins / roundsPlayed;
+            //double percentageOfCatsGames = (double)catsGames / roundsPlayed;
+
+            //ConsoleUtil.DisplayMessage("Rounds Played: " + roundsPlayed);
+            //ConsoleUtil.DisplayMessage("Rounds for Player X: " + playerXWins + " - " + String.Format("{0:P2}", playerXPercentageWins));
+            //ConsoleUtil.DisplayMessage("Rounds for Player O: " + playerOWins + " - " + String.Format("{0:P2}", playerOPercentageWins));
+            //ConsoleUtil.DisplayMessage("Cat's Games: " + catsGames + " - " + String.Format("{0:P2}", percentageOfCatsGames));
+
+            Console.WriteLine("I'm sorry, that option is not available at this time.");
+
+
+            DisplayContinuePrompt();
+            DisplayGetMenuChoice();
         }
 
         public bool DisplayNewRoundPrompt()
@@ -479,6 +534,114 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             return tempCoordinate;
         }
 
-        #endregion
+        public void DisplayRulesScreen()
+        {
+            ConsoleUtil.DisplayReset();
+            ConsoleUtil.HeaderText = "The Rules";
+
+            Console.WriteLine();
+            Console.WriteLine("***************************************************");
+            ConsoleUtil.DisplayMessage("TIC-TAC-TOE RULES");
+            Console.WriteLine(); Console.WriteLine("***************************************************");
+
+            ConsoleUtil.DisplayMessage("Choose a Player to go first.");
+            Console.WriteLine();
+            ConsoleUtil.DisplayMessage("The first Player marks a square with an “X”.");
+            Console.WriteLine();
+            ConsoleUtil.DisplayMessage("The second Player marks a square with an “O”.");
+            ConsoleUtil.DisplayMessage("Players continue alternating turns.");
+            ConsoleUtil.DisplayMessage("A Player has won when he has");
+            ConsoleUtil.DisplayMessage("3 consecutive pieces in a vertical,");
+            ConsoleUtil.DisplayMessage("horizontal, or diagonal line.");
+            Console.WriteLine();
+            Console.WriteLine();
+
+            DisplayContinuePrompt();
+
+        }
+
+
+        public MenuOption DisplayGetMenuChoice()
+        {
+            MenuOption playerMenuChoice = MenuOption.None;
+            bool usingMenu = true;
+
+            while (usingMenu)
+            {
+                ConsoleUtil.DisplayReset();
+                ConsoleUtil.HeaderText = "Menu Choice";
+
+                Console.CursorVisible = true;
+
+                //Display the Menu//
+
+
+                Console.WriteLine();
+                Console.WriteLine(
+
+                "\t" + "******************************" + Environment.NewLine +
+                "\t" + "Menu Choices" + Environment.NewLine +
+                "\t" + "******************************" + Environment.NewLine +
+                "\t" + "1. Play New Round" + Environment.NewLine +
+                "\t" + "2. Game Rules" + Environment.NewLine +
+                "\t" + "3. View Current Game Stats" + Environment.NewLine +
+                "\t" + "4. View Historic Game Stats" + Environment.NewLine +
+                "\t" + "5. Save Game" + Environment.NewLine +
+                "\t" + "6. Quit" + Environment.NewLine);
+
+                Console.WriteLine();
+                Console.WriteLine();
+                ConsoleUtil.DisplayPromptMessage("What would you like to do? (Type Letter)");
+
+                //Get User Response//
+
+                ConsoleKeyInfo userResponse = Console.ReadKey(true);
+
+                switch (userResponse.KeyChar)
+                {
+                    case '1':
+                        playerMenuChoice = MenuOption.PlayNewRound;
+                        usingMenu = false;
+                        break;
+                    case '2':
+                        playerMenuChoice = MenuOption.GameRules;
+                        usingMenu = false;
+                        break;
+                    case '3':
+                        playerMenuChoice = MenuOption.ViewCurrentGameStats;
+                        usingMenu = false;
+                        break;
+                    case '4':
+                        playerMenuChoice = MenuOption.ViewHistoricGameStats;
+                        usingMenu = false;
+                        break;
+                    case '5':
+                        playerMenuChoice = MenuOption.SaveGameResults;
+                        usingMenu = false;
+                        break;
+                    case '6':
+                        playerMenuChoice = MenuOption.Quit;
+                        usingMenu = false;
+                        break;
+                    default:
+                        Console.WriteLine("It appears you have selected an incorrect choice.");
+                        Console.WriteLine();
+                        Console.WriteLine("Press any key to continue or the ESC key to quit the game.");
+
+                        userResponse = Console.ReadKey(true);
+                        if (userResponse.Key == ConsoleKey.Escape)
+                        {
+                            usingMenu = false;
+                        }
+                        break;
+
+                }
+            }
+            Console.CursorVisible = true;
+
+            return playerMenuChoice;
+        }
     }
 }
+
+#endregion
