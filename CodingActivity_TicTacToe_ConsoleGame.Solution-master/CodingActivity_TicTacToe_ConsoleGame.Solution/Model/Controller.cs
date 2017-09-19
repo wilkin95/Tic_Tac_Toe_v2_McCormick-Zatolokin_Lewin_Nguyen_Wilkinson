@@ -96,7 +96,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
                     {
                         case MenuOption.None:
                             break;
-                        case MenuOption.PlayNewRound:
+                        case MenuOption.PlayNewRound:                            
                             PlayGame();
                             break;
                         case MenuOption.GameRules:
@@ -130,7 +130,10 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
 
         }
-
+        /// <summary>
+        /// Collect player name before playing the game
+        /// </summary>
+       
 
 
         /// <summary>

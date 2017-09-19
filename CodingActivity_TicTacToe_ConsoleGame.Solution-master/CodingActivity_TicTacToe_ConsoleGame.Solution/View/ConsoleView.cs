@@ -119,6 +119,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
         /// </summary>
         public void DisplayExitPrompt()
         {
+            ConsoleUtil.HeaderText = "Quit/Exit the game";
             ConsoleUtil.DisplayReset();
 
             Console.CursorVisible = false;
@@ -536,12 +537,11 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
         public void DisplayRulesScreen()
         {
-            ConsoleUtil.DisplayReset();
             ConsoleUtil.HeaderText = "The Rules";
-
+            ConsoleUtil.DisplayReset();          
             Console.WriteLine();
             Console.WriteLine("***************************************************");
-            ConsoleUtil.DisplayMessage("TIC-TAC-TOE RULES");
+            ConsoleUtil.DisplayMessage("                                  TIC-TAC-TOE RULES          ");
             Console.WriteLine(); Console.WriteLine("***************************************************");
 
             ConsoleUtil.DisplayMessage("Choose a Player to go first.");
@@ -549,9 +549,13 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             ConsoleUtil.DisplayMessage("The first Player marks a square with an “X”.");
             Console.WriteLine();
             ConsoleUtil.DisplayMessage("The second Player marks a square with an “O”.");
+            Console.WriteLine();
             ConsoleUtil.DisplayMessage("Players continue alternating turns.");
+            Console.WriteLine();
             ConsoleUtil.DisplayMessage("A Player has won when he has");
+            Console.WriteLine();
             ConsoleUtil.DisplayMessage("3 consecutive pieces in a vertical,");
+            Console.WriteLine();
             ConsoleUtil.DisplayMessage("horizontal, or diagonal line.");
             Console.WriteLine();
             Console.WriteLine();
@@ -568,8 +572,9 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
             while (usingMenu)
             {
-                ConsoleUtil.DisplayReset();
                 ConsoleUtil.HeaderText = "Menu Choice";
+                ConsoleUtil.DisplayReset();
+                
 
                 Console.CursorVisible = true;
 
@@ -580,7 +585,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
                 Console.WriteLine(
 
                 "\t" + "******************************" + Environment.NewLine +
-                "\t" + "Menu Choices" + Environment.NewLine +
+                "\t" + "          Menu Choices" + Environment.NewLine +
                 "\t" + "******************************" + Environment.NewLine +
                 "\t" + "1. Play New Round" + Environment.NewLine +
                 "\t" + "2. Game Rules" + Environment.NewLine +
@@ -591,7 +596,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
                 Console.WriteLine();
                 Console.WriteLine();
-                ConsoleUtil.DisplayPromptMessage("What would you like to do? (Type Letter)");
+                ConsoleUtil.DisplayPromptMessage("What would you like to do? (Please choose a number)");
 
                 //Get User Response//
 
@@ -601,6 +606,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
                 {
                     case '1':
                         playerMenuChoice = MenuOption.PlayNewRound;
+                        InputPlayerName();
                         usingMenu = false;
                         break;
                     case '2':
@@ -641,6 +647,23 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
             return playerMenuChoice;
         }
+        public void InputPlayerName()
+        {           
+            ConsoleUtil.HeaderText = "Play a New Round";
+            ConsoleUtil.DisplayReset();            
+            Console.WriteLine("Welcome, You have chosen Play a New Round !!!");
+            Console.Write("\nEnter the first player name: ");
+            string firstPlayerName = Console.ReadLine();
+            Console.Write("\nEnter the second player name: ");
+            string secondPlayerName = Console.ReadLine();
+            Console.WriteLine("\nChoose the starting player: ");
+            string startPlayer = Console.ReadLine();
+            Console.WriteLine("\nThank you {0} and {1}", firstPlayerName, secondPlayerName + "." + " Enjoy the game!!!");
+            Console.WriteLine("\nPress any key to continue");
+            Console.ReadLine();
+        }
+
+
     }
 }
 
