@@ -141,7 +141,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
                 _currentRoundState = GameboardState.CatsGame;
             }
         }
-        
+
         public bool IsCatsGame()
         {
             //

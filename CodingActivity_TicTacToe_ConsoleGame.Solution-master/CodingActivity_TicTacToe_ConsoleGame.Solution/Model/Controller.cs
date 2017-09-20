@@ -46,7 +46,6 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             InitializeGame();
 
             ManageGameLoop();
-
         }
 
         #endregion
@@ -87,41 +86,48 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
             while (_usingGame)
             {
-
-                while (!Console.KeyAvailable)
+                while (_playingRound)
                 {
-                    playerMenuChoice = _gameView.DisplayGetMenuChoice();
 
-                    switch (playerMenuChoice)
+                    while (!Console.KeyAvailable)
                     {
-                        case MenuOption.None:
-                            break;
-                        case MenuOption.PlayNewRound:                            
-                            PlayGame();
-                            break;
-                        case MenuOption.GameRules:
-                            _gameView.DisplayRulesScreen();
-                            break;
-                        case MenuOption.ViewCurrentGameStats:
-                            //
-                            // Round Complete: Display the results
-                            //
-                            _gameView.DisplayCurrentGameStatus(_roundNumber, _playerXNumberOfWins, _playerONumberOfWins, _numberOfCatsGames);
-                            break;
-                        case MenuOption.ViewHistoricGameStats:
-                            _gameView.DisplayHistoricGameStats();
-                            break;
-                        case MenuOption.SaveGameResults:
-                            Console.WriteLine("\t" + Environment.NewLine + "I'm sorry, that option is not available at this time.");
-                            _gameView.DisplayContinuePrompt();
-                            break;
-                        case MenuOption.Quit:
-                            _gameView.DisplayExitPrompt();
-                            _usingGame = false;
-                            break;
-                        default:
-                            break;
 
+
+                        playerMenuChoice = _gameView.DisplayGetMenuChoice();
+
+
+                        switch (playerMenuChoice)
+                        {
+                            case MenuOption.None:
+                                break;
+                            case MenuOption.PlayNewRound:
+                                PlayGame();
+                                break;
+                            case MenuOption.GameRules:
+                                _gameView.DisplayRulesScreen();
+                                break;
+                            case MenuOption.ViewCurrentGameStats:
+                                //
+                                // Round Complete: Display the results
+                                //
+                                _gameView.DisplayCurrentGameStatus(_roundNumber, _playerXNumberOfWins, _playerONumberOfWins, _numberOfCatsGames);
+                                break;
+                            case MenuOption.ViewHistoricGameStats:
+                                _gameView.DisplayHistoricGameStats();
+                                break;
+                            case MenuOption.SaveGameResults:
+                                Console.WriteLine("\t" + Environment.NewLine + "I'm sorry, that option is not available at this time.");
+                                _gameView.DisplayContinuePrompt();
+                                break;
+                            case MenuOption.Quit:
+                                _gameView.DisplayExitPrompt();
+                                _usingGame = false;
+                                _playingRound = false;
+                                break;
+                            default:
+                                break;
+
+                        }
                     }
                 }
                 _gameView.DisplayExitPrompt();
@@ -130,10 +136,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
 
         }
-        /// <summary>
-        /// Collect player name before playing the game
-        /// </summary>
-       
+
 
 
         /// <summary>
@@ -141,59 +144,73 @@ namespace CodingActivity_TicTacToe_ConsoleGame
         /// </summary>
         public void PlayGame()
         {
-
-
-            while (_playingGame)
+            _usingGame = true;
+            while (_usingGame)
             {
+                _playingGame = true;
 
-                //
-                // Round loop
-                //
-                while (_playingRound)
+                while (_playingGame)
                 {
-
-
+                    _playingRound = true;
                     //
-                    // Perform the task associated with the current game and round state
+                    // Round loop
                     //
-                    ManageGameStateTasks();
-
-                    //
-                    // Evaluate and update the current game board state
-                    //
-                    _gameboard.UpdateGameboardState();
-                }
-
-                //
-                // Round Complete: Display the results
-                //
-                _gameView.DisplayCurrentGameStatus(_roundNumber, _playerXNumberOfWins, _playerONumberOfWins, _numberOfCatsGames);
-
-                //
-                // Confirm no major user errors
-                //
-                if (_gameView.CurrentViewState != ConsoleView.ViewState.PlayerUsedMaxAttempts ||
-                    _gameView.CurrentViewState != ConsoleView.ViewState.PlayerTimedOut)
-                {
-                    //
-                    // Prompt user to play another round
-                    //
-                    if (_gameView.DisplayNewRoundPrompt())
+                    while (_playingRound)
                     {
-                        _gameboard.InitializeGameboard();
-                        _gameView.InitializeView();
-                        _playingRound = true;
+                        //
+                        // Perform the task associated with the current game and round state
+                        //
+                        ManageGameStateTasks();
+
+                        //
+                        // Evaluate and update the current game board state
+                        //
+                        _gameboard.UpdateGameboardState();
+                    }
+
+                    //
+                    // Round Complete: Display the results
+                    //
+                    _gameView.DisplayCurrentGameStatus(_roundNumber, _playerXNumberOfWins, _playerONumberOfWins, _numberOfCatsGames);
+
+                    //
+                    // Confirm no major user errors
+                    //
+                    if (_gameView.CurrentViewState != ConsoleView.ViewState.PlayerUsedMaxAttempts ||
+                        _gameView.CurrentViewState != ConsoleView.ViewState.PlayerTimedOut)
+                    {
+
+                        //
+                        // Prompt user to play another round
+                        //
+                        bool playAgain = _gameView.DisplayNewRoundPrompt();
+
+                        if (playAgain == true)
+                        {
+                            _gameboard.InitializeGameboard();
+                            _gameView.InitializeView();
+                            _playingRound = true;
+                        }
+
+                        if (playAgain == false)
+                        {
+                            _gameboard.InitializeGameboard();
+                            _playingGame = false;
+                            _playingRound = false;
+                            _usingGame = false;
+
+                        }
+
+                    }
+                    //
+                    // Major user error recorded, end game
+                    //
+                    else
+                    {
+                        _playingGame = false;
                     }
                 }
-                //
-                // Major user error recorded, end game
-                //
-                else
-                {
-                    _playingGame = false;
-                }
             }
-
             _gameView.DisplayClosingScreen();
         }
 

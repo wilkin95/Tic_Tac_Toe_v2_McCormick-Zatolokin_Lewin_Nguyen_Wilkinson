@@ -119,7 +119,6 @@ namespace CodingActivity_TicTacToe_ConsoleGame
         /// </summary>
         public void DisplayExitPrompt()
         {
-            ConsoleUtil.HeaderText = "Quit/Exit the game";
             ConsoleUtil.DisplayReset();
 
             Console.CursorVisible = false;
@@ -183,6 +182,73 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             DisplayContinuePrompt();
         }
 
+
+        //prompt player to choose quit or main menu//
+        public void OpeningScreenPrompt()
+        {
+            Console.CursorVisible = true;
+
+
+            bool validResponse = false;
+
+
+
+            while (!validResponse)
+            {
+                Console.WriteLine();
+
+                ConsoleUtil.DisplayMessage("     Please choose from the options below: (Type in the number and press enter)");
+                Console.WriteLine();
+                Console.SetCursorPosition(10, 16);
+                ConsoleUtil.DisplayMessage("     1. Main Menu" + Environment.NewLine + "2. Quit");
+
+                int choice;
+
+                Console.SetCursorPosition(13, 18);
+                string response = Console.ReadLine();
+
+
+                if (Int32.TryParse(response, out choice))
+                {
+                    if (choice == 1)
+                    {
+
+                        validResponse = true;
+
+                    }
+                    else if (choice == 2)
+                    {
+                        DisplayExitPrompt();
+                        validResponse = true;
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please choose from the numbers listed.");
+                        validResponse = false;
+                        ConsoleUtil.DisplayPromptMessage("Press any key to try again.");
+                        Console.ReadKey();
+                        ConsoleUtil.DisplayReset();
+
+                    }
+                }
+                else
+                {
+                    Console.WriteLine();
+                    ConsoleUtil.DisplayMessage("That is not a valid response. ");
+                    ConsoleUtil.DisplayPromptMessage("Press any key to try again.");
+                    Console.ReadKey();
+                    validResponse = false;
+
+                    ConsoleUtil.DisplayReset();
+                }
+            }
+
+
+        }
+
+
+
         /// <summary>
         /// display the welcome screen
         /// </summary>
@@ -204,11 +270,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             ConsoleUtil.DisplayMessage(sb.ToString());
             Console.WriteLine();
 
-            sb.Clear();
-            sb.AppendFormat("Your first task will be to set up your account details.");
-            ConsoleUtil.DisplayMessage(sb.ToString());
-
-            DisplayContinuePrompt();
+            OpeningScreenPrompt();
         }
 
         /// <summary>
@@ -423,22 +485,26 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             bool validResponse = false;
             string userResponse;
 
+            ConsoleUtil.DisplayPromptMessage(promptMessage + "(yes/no)");
+            userResponse = Console.ReadLine();
+
             while (!validResponse)
             {
                 ConsoleUtil.DisplayReset();
 
-                ConsoleUtil.DisplayPromptMessage(promptMessage + "(yes/no)");
-                userResponse = Console.ReadLine();
+
 
                 if (userResponse.ToUpper() == "YES")
                 {
                     validResponse = true;
                     yesNoChoice = true;
+
                 }
                 else if (userResponse.ToUpper() == "NO")
                 {
                     validResponse = true;
                     yesNoChoice = false;
+                    break;
                 }
                 else
                 {
@@ -452,6 +518,8 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
             return yesNoChoice;
         }
+
+
 
         /// <summary>
         /// Get a player's position choice within the correct range of the array
@@ -537,11 +605,12 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
         public void DisplayRulesScreen()
         {
+            ConsoleUtil.DisplayReset();
             ConsoleUtil.HeaderText = "The Rules";
-            ConsoleUtil.DisplayReset();          
+
             Console.WriteLine();
             Console.WriteLine("***************************************************");
-            ConsoleUtil.DisplayMessage("                                  TIC-TAC-TOE RULES          ");
+            ConsoleUtil.DisplayMessage("TIC-TAC-TOE RULES");
             Console.WriteLine(); Console.WriteLine("***************************************************");
 
             ConsoleUtil.DisplayMessage("Choose a Player to go first.");
@@ -549,13 +618,9 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             ConsoleUtil.DisplayMessage("The first Player marks a square with an “X”.");
             Console.WriteLine();
             ConsoleUtil.DisplayMessage("The second Player marks a square with an “O”.");
-            Console.WriteLine();
             ConsoleUtil.DisplayMessage("Players continue alternating turns.");
-            Console.WriteLine();
             ConsoleUtil.DisplayMessage("A Player has won when he has");
-            Console.WriteLine();
             ConsoleUtil.DisplayMessage("3 consecutive pieces in a vertical,");
-            Console.WriteLine();
             ConsoleUtil.DisplayMessage("horizontal, or diagonal line.");
             Console.WriteLine();
             Console.WriteLine();
@@ -572,9 +637,8 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
             while (usingMenu)
             {
-                ConsoleUtil.HeaderText = "Menu Choice";
                 ConsoleUtil.DisplayReset();
-                
+                ConsoleUtil.HeaderText = "Menu Choice";
 
                 Console.CursorVisible = true;
 
@@ -585,7 +649,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
                 Console.WriteLine(
 
                 "\t" + "******************************" + Environment.NewLine +
-                "\t" + "          Menu Choices" + Environment.NewLine +
+                "\t" + "Menu Choices" + Environment.NewLine +
                 "\t" + "******************************" + Environment.NewLine +
                 "\t" + "1. Play New Round" + Environment.NewLine +
                 "\t" + "2. Game Rules" + Environment.NewLine +
@@ -596,11 +660,12 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
                 Console.WriteLine();
                 Console.WriteLine();
-                ConsoleUtil.DisplayPromptMessage("What would you like to do? (Please choose a number)");
+                ConsoleUtil.DisplayPromptMessage("What would you like to do? (Type Letter)");
 
                 //Get User Response//
 
                 ConsoleKeyInfo userResponse = Console.ReadKey(true);
+
 
                 switch (userResponse.KeyChar)
                 {
@@ -638,6 +703,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
                         if (userResponse.Key == ConsoleKey.Escape)
                         {
                             usingMenu = false;
+                            Environment.Exit(1);
                         }
                         break;
 
@@ -647,10 +713,11 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
             return playerMenuChoice;
         }
+
         public void InputPlayerName()
-        {           
+        {
             ConsoleUtil.HeaderText = "Play a New Round";
-            ConsoleUtil.DisplayReset();            
+            ConsoleUtil.DisplayReset();
             Console.WriteLine("Welcome, You have chosen Play a New Round !!!");
             Console.Write("\nEnter the first player name: ");
             string firstPlayerName = Console.ReadLine();
@@ -662,7 +729,6 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             Console.WriteLine("\nPress any key to continue");
             Console.ReadLine();
         }
-
 
     }
 }
