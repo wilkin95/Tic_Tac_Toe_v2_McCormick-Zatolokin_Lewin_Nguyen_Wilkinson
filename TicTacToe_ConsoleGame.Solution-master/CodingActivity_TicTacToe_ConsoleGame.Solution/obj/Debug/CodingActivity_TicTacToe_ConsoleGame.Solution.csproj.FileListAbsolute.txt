@@ -1,0 +1,6 @@
+G:\College\CIT 255\Tic-Tac-Toe\Tic-Tac-Toe V2\CodingActivity_TicTacToe_ConsoleGame.Solution-master\CodingActivity_TicTacToe_ConsoleGame.Solution\bin\Debug\CodingActivity_TicTacToe_ConsoleGame.exe.config
+G:\College\CIT 255\Tic-Tac-Toe\Tic-Tac-Toe V2\CodingActivity_TicTacToe_ConsoleGame.Solution-master\CodingActivity_TicTacToe_ConsoleGame.Solution\bin\Debug\CodingActivity_TicTacToe_ConsoleGame.exe
+G:\College\CIT 255\Tic-Tac-Toe\Tic-Tac-Toe V2\CodingActivity_TicTacToe_ConsoleGame.Solution-master\CodingActivity_TicTacToe_ConsoleGame.Solution\bin\Debug\CodingActivity_TicTacToe_ConsoleGame.pdb
+G:\College\CIT 255\Tic-Tac-Toe\Tic-Tac-Toe V2\CodingActivity_TicTacToe_ConsoleGame.Solution-master\CodingActivity_TicTacToe_ConsoleGame.Solution\obj\Debug\CodingActivity_TicTacToe_ConsoleGame.Solution.csprojResolveAssemblyReference.cache
+G:\College\CIT 255\Tic-Tac-Toe\Tic-Tac-Toe V2\CodingActivity_TicTacToe_ConsoleGame.Solution-master\CodingActivity_TicTacToe_ConsoleGame.Solution\obj\Debug\CodingActivity_TicTacToe_ConsoleGame.exe
+G:\College\CIT 255\Tic-Tac-Toe\Tic-Tac-Toe V2\CodingActivity_TicTacToe_ConsoleGame.Solution-master\CodingActivity_TicTacToe_ConsoleGame.Solution\obj\Debug\CodingActivity_TicTacToe_ConsoleGame.pdb
