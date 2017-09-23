@@ -108,6 +108,19 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
             Console.CursorVisible = true;
         }
+        public void DisplayContinuePromptCentered()
+        {
+            Console.CursorVisible = false;
+
+            Console.WriteLine();
+
+            Console.WriteLine(ConsoleUtil.Center("Press any key to continue."));
+            ConsoleKeyInfo response = Console.ReadKey();
+
+            Console.WriteLine();
+
+            Console.CursorVisible = true;
+        }
 
         public void AnyPointExit()
         {
@@ -161,13 +174,11 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
             ConsoleUtil.HeaderText = "Maximum Attempts Reached!";
             ConsoleUtil.DisplayReset();
-
-            sb.Append(" It appears that you are having difficulty entering your");
-            sb.Append(" choice. Please refer to the instructions and play again.");
+            sb.Append(ConsoleUtil.Center(" It appears that you are having difficulty entering your choice." + Environment.NewLine));
+            sb.Append(ConsoleUtil.Center("Please refer to the instructions and play again."));
 
             DisplayMessageBox(sb.ToString());
-
-            DisplayContinuePrompt();
+            DisplayContinuePromptCentered();
         }
 
 
@@ -190,6 +201,69 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             DisplayContinuePrompt();
         }
 
+
+        //prompt player to choose quit or main menu//
+        public void MainMenuQuitScreenPrompt()
+        {
+            Console.CursorVisible = true;
+
+
+            bool validResponse = false;
+
+
+
+            while (!validResponse)
+            {
+                Console.WriteLine();
+
+                ConsoleUtil.DisplayMessage("     Please choose from the options below: (Type in the number and press enter)");
+                Console.WriteLine();
+
+                ConsoleUtil.DisplayMessage("     1. Main Menu" + Environment.NewLine + "2. Quit");
+                Console.CursorLeft = 3;
+                int choice;
+
+                string response = Console.ReadLine();
+
+
+                if (Int32.TryParse(response, out choice))
+                {
+                    if (choice == 1)
+                    {
+
+                        validResponse = true;
+
+                    }
+                    else if (choice == 2)
+                    {
+                        DisplayExitPrompt();
+                        validResponse = true;
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please choose from the numbers listed.");
+                        validResponse = false;
+                        ConsoleUtil.DisplayPromptMessage("Press any key to try again.");
+                        Console.ReadKey();
+                        ConsoleUtil.DisplayReset();
+
+                    }
+                }
+                else
+                {
+                    Console.WriteLine();
+                    ConsoleUtil.DisplayMessage("That is not a valid response. ");
+                    ConsoleUtil.DisplayPromptMessage("Press any key to try again.");
+                    Console.ReadKey();
+                    validResponse = false;
+
+                    ConsoleUtil.DisplayReset();
+                }
+            }
+
+
+        }
 
         //prompt player to choose quit or main menu//
         public void OpeningScreenPrompt()
@@ -335,7 +409,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
                 ConsoleUtil.DisplayMessage("Cat's Games: " + catsGames + " - " + String.Format("{0:P2}", percentageOfCatsGames));
 
             }
-            
+
             DisplayContinuePrompt();
 
         }
@@ -353,11 +427,13 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             //ConsoleUtil.DisplayMessage("Rounds for Player X: " + playerXWins + " - " + String.Format("{0:P2}", playerXPercentageWins));
             //ConsoleUtil.DisplayMessage("Rounds for Player O: " + playerOWins + " - " + String.Format("{0:P2}", playerOPercentageWins));
             //ConsoleUtil.DisplayMessage("Cat's Games: " + catsGames + " - " + String.Format("{0:P2}", percentageOfCatsGames));
+            StringBuilder sb = new StringBuilder();
 
-            Console.WriteLine("I'm sorry, that option is not available at this time.");
+            sb.Append("I'm sorry, that option is not available at this time.");
 
+            DisplayMessageBox(sb.ToString());
 
-            DisplayContinuePrompt();
+            MainMenuQuitScreenPrompt();
         }
 
         public void SaveGameResults()
@@ -373,12 +449,13 @@ namespace CodingActivity_TicTacToe_ConsoleGame
             //ConsoleUtil.DisplayMessage("Rounds for Player X: " + playerXWins + " - " + String.Format("{0:P2}", playerXPercentageWins));
             //ConsoleUtil.DisplayMessage("Rounds for Player O: " + playerOWins + " - " + String.Format("{0:P2}", playerOPercentageWins));
             //ConsoleUtil.DisplayMessage("Cat's Games: " + catsGames + " - " + String.Format("{0:P2}", percentageOfCatsGames));
+            StringBuilder sb = new StringBuilder();
 
-            Console.WriteLine("I'm sorry, that option is not available at this time.");
+            sb.Append("I'm sorry, that option is not available at this time.");
 
+            DisplayMessageBox(sb.ToString());
 
-            DisplayContinuePrompt();
-            DisplayGetMenuChoice();
+            MainMenuQuitScreenPrompt();
         }
 
         public bool DisplayNewRoundPrompt()
@@ -680,22 +757,18 @@ namespace CodingActivity_TicTacToe_ConsoleGame
 
             Console.WriteLine();
             Console.WriteLine("***************************************************");
-            ConsoleUtil.DisplayMessage("TIC-TAC-TOE RULES");
+            ConsoleUtil.DisplayMessage("                TIC-TAC-TOE RULES                  ");
             Console.WriteLine(); Console.WriteLine("***************************************************");
 
-            ConsoleUtil.DisplayMessage("Choose a Player to go first.");
-            Console.WriteLine();
-            ConsoleUtil.DisplayMessage("The first Player marks a square with an “X”.");
-            Console.WriteLine();
-            ConsoleUtil.DisplayMessage("The second Player marks a square with an “O”.");
-            ConsoleUtil.DisplayMessage("Players continue alternating turns.");
-            ConsoleUtil.DisplayMessage("A Player has won when he has");
-            ConsoleUtil.DisplayMessage("3 consecutive pieces in a vertical,");
-            ConsoleUtil.DisplayMessage("horizontal, or diagonal line.");
-            Console.WriteLine();
-            Console.WriteLine();
-
-            DisplayContinuePrompt();
+            ConsoleUtil.DisplayMessage("1. Choose a Player to go first.");
+            ConsoleUtil.DisplayMessage("2. The first Player chooses a square to mark with an “X”.");
+            ConsoleUtil.DisplayMessage("3. The second Player chooses a square to mark with an “O”.");
+            ConsoleUtil.DisplayMessage("4. Players continue alternating turns.");
+            ConsoleUtil.DisplayMessage("5. A Player has won when he has 3 consecutive pieces");
+            ConsoleUtil.DisplayMessage("   in a vertical, horizontal, or diagonal line.");
+            ConsoleUtil.DisplayMessage("6. If all nine squares are filled and neither player");
+            ConsoleUtil.DisplayMessage("has three in a row, a Cat's game results.");
+            MainMenuQuitScreenPrompt();
 
         }
 

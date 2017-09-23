@@ -116,8 +116,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
                                 _gameView.DisplayHistoricGameStats();
                                 break;
                             case MenuOption.SaveGameResults:
-                                Console.WriteLine("\t" + Environment.NewLine + "I'm sorry, that option is not available at this time.");
-                                _gameView.DisplayContinuePrompt();
+                                _gameView.SaveGameResults();
                                 break;
                             case MenuOption.Quit:
                                 _gameView.DisplayExitPrompt();
@@ -144,6 +143,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
         /// </summary>
         public void PlayGame()
         {
+            
             _usingGame = true;
             while (_usingGame)
             {
@@ -266,6 +266,7 @@ namespace CodingActivity_TicTacToe_ConsoleGame
                     _gameView.DisplayMaxAttemptsReachedScreen();
                     _playingRound = false;
                     _playingGame = false;
+                    _usingGame = false;
                     break;
                 default:
                     break;
